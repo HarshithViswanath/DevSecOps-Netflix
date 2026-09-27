@@ -4,7 +4,7 @@ pipeline{
         SCANNER_HOME=tool 'sonar-scanner'
         TMDB_V3_API_KEY = credentials('tmdb-api-key')
         NVD_API_KEY = credentials('nvd-api-key')
-        IMAGE_NAME = "sushmaagowdaa/netflix" // Name of the image created in Jenkins
+        IMAGE_NAME = "HarshithVF10/netflix" // Name of the image created in Jenkins
         CONTAINER_NAME = "netflix" // Name of the container created in Jenkins
     }
     stages {
@@ -15,14 +15,14 @@ pipeline{
         }
         stage('Checkout from Git'){
             steps{
-                git 'https://github.com/Sushmaa123/DevSecOps-Project.git'
+                git 'https://github.com/HarshithViswanath/DevSecOps-Netflix.git'
             }
         }
         stage("Sonarqube Analysis "){
             steps{
                 withSonarQubeEnv('sonar-server') {
-                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=DevSecOps-Project \
-                    -Dsonar.projectKey=DevSecOps-Project'''
+                    sh ''' $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=DevSecOps-Netflix \
+                    -Dsonar.projectKey=DevSecOps-Netflix'''
                 }
             }
         }
@@ -39,7 +39,7 @@ pipeline{
         stage('Clean Up Docker Resources') {
             steps {
                 script {
-                    // Remove the specific container
+                    // Remove the specific container(existing)
                     sh '''
                     if docker ps -a --format '{{.Names}}' | grep -q $CONTAINER_NAME; then
                         echo "Stopping and removing container: $CONTAINER_NAME"
@@ -95,7 +95,7 @@ post {
             body: "Project: ${env.JOB_NAME}<br/>" +
                 "Build Number: ${env.BUILD_NUMBER}<br/>" +
                 "URL: ${env.BUILD_URL}<br/>",
-            to: 'sushmaananda999@gmail.com',                               
+            to: 'harshithviswanathappa@gmail.com',                               
             attachmentsPattern: 'trivyimage.txt'
         }
     }
