@@ -95,7 +95,7 @@ post {
             body: "Project: ${env.JOB_NAME}<br/>" +
                 "Build Number: ${env.BUILD_NUMBER}<br/>" +
                 "URL: ${env.BUILD_URL}<br/>",
-            to: 'harshithviswanathappa@gmail.com',                               
+            to: 'harshithv479@gmail.com', //email                              
             attachmentsPattern: 'trivyimage.txt'
         }
     }
